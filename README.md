@@ -7,6 +7,7 @@ This project was generated with the `npm init code-surfer-deck` command.
 To run the presentation deck in development mode:
 
 ```sh
+npm install
 npm start
 ```
 
