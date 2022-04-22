@@ -1,0 +1,1279 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github, vsDark } from "@code-surfer/themes";
+import tddFLow from './src/tdd-flow.png';
+import pyramid from './src/test-automation-pyramid.jpeg';
+import todoapp from './src/todoapp.png';
+import fail from './src/fail.png';
+
+export const theme = github;
+
+# Test-driven Development (TDD)
+
+<small style={{color: 'green'}}>By Dimas Wibowo</small>
+
+---
+
+# What is TDD ?
+<div style={{textAlign: 'center'}}>
+  <small>
+    Test-driven development (TDD) is a software development process relying on software requirements being converted to test cases before software is fully developed, and tracking all software development by repeatedly testing the software against all test cases.
+  </small>
+  <br/>
+  <a href="https://en.wikipedia.org/wiki/Test-driven_development">Source Wikipedia</a>
+
+</div>
+
+---
+
+  # Why ?
+
+  <div style={{textAlign: 'center', padding: 20}}>
+    TDD promotes a test-then-code approach. It’s based on the idea that if developers use test cases before writing functionality, they can create better software and, often, complete the project faster. This approach is different from normal software testing, where they generate the code first and only then test it.
+  </div>
+
+---
+
+# Automation Test Pyramid
+
+<div style={{textAlign: 'center'}}>
+<img style={{maxHeight: 500}} src={pyramid} alt="pyramid" />
+</div>
+
+---
+
+# The flow
+<div>
+  <img style={{maxHeight: 600}} src={tddFLow} alt="Flow" />
+</div>
+
+---
+
+<CodeSurferColumns themes={[github, vsDark]}>
+
+<Step>
+
+# Benefit of using TDD
+
+```js 1
+```
+
+</Step>
+
+<Step subtitle='Through its test-first approach, it gives developers the opportunity to consider more carefully the usability challenges users are likely to face'>
+
+# Benefit of using TDD
+
+```js 1
+# Develop highly usable software
+```
+
+</Step>
+
+<Step subtitle='Tests ensure that the code stays focused and clear during each stage of development.'>
+
+# Benefit of using TDD
+
+```js 2
+# Develop highly usable software
+# Reduce bugs
+```
+
+</Step>
+
+<Step subtitle='With TDD, it’s easy to spot functionality issues even as the software is being developed, which allows for these to be more quickly addressed.'>
+
+# Benefit of using TDD
+
+```js 3
+# Develop highly usable software
+# Reduce bugs
+# Identify functionality issues
+```
+
+</Step>
+
+<Step subtitle='The result is a tidy codebase free from unnecessary duplication, which makes the software easier to tweak and maintain.'>
+
+# Benefit of using TDD
+
+```js 4
+# Develop highly usable software
+# Reduce bugs
+# Identify functionality issues
+# Avoid code duplication
+```
+
+</Step>
+
+<Step subtitle='TDD requires developers to write code in response to test requirements. This approach promotes the simplification of code.'>
+
+# Benefit of using TDD
+
+```js 5
+# Develop highly usable software
+# Reduce bugs
+# Identify functionality issues
+# Avoid code duplication
+# Simplify code
+```
+
+</Step>
+
+<Step subtitle='The team of developers can use TDD to effectively determine how good the code is.'>
+
+# Benefit of using TDD
+
+```js 6
+# Develop highly usable software
+# Reduce bugs
+# Identify functionality issues
+# Avoid code duplication
+# Simplify code
+# Check the quality of the code
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Simple Example Backend Unit Test
+
+Todo App Using:
+- Express
+- Jest for running the test and assertion
+- Supertest npm package for API test
+
+---
+
+# Endpoints
+
+- Read the list of user todos GET /v1/api/todos
+- Store my todo on POST /api/v1/todos
+- Delete the todo by ID from database DELETE /v1/api/todos/:id
+
+---
+
+<CodeSurferColumns themes={[github, vsDark]}>
+
+<Step subtitle='First thing first: We must define all the test cases'>
+
+```ts
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+<img src={todoapp} alt='todo' />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[github, vsDark]}>
+<Step subtitle='Wrap scenario into describe statement'>
+
+```ts 1
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 1:3
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+    // All the testcase should be written in here
+});
+```
+
+</Step>
+
+<Step subtitle='Wrap testcase using it statement'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 2:4
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Second testcase'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 6:8
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', () => {
+    // test assertion should be placed in here
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Import supertest and express js server runner'>
+
+```ts
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 1:3
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', () => {
+    // test assertion should be placed in here
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write the test assertion'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 7
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', () => {
+    // validate the database has no rows
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write the test assertion'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 9
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', () => {
+    // validate the database has no rows
+
+    // validate the GET /api/v1/todos returns empty array
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write the test assertion'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 6:12
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='async, await'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 6[47:52],8[22:27]
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Get total todos count on the database on todos table'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 8
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Expect it should return zero row'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 9
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write the test assertion'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 6:16
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+    await supertest(server)
+        .get('/api/v1/todos')
+        .expect(200) // expect that the http status code should be 200 (success)
+        .expect([]); // has empty response
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Simulate sending GET request to GET /v1/todos endpoint'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 13
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+    await supertest(server)
+        .get('/api/v1/todos')
+        .expect(200) // expect that the http status code should be 200 (success)
+        .expect([]); // has empty response
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Expect the HTTP status should return success response'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 14
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+    await supertest(server)
+        .get('/api/v1/todos')
+        .expect(200) // expect that the http status code should be 200 (success)
+        .expect([]); // has empty response
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Expect the endpoint return an empty JSON array'>
+
+```ts 2
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 15
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  it ('should return empty data if no todos', async () => {
+    // validate the database has no rows
+    const rowsCount = await db.todos.count();
+    expect(rowsCount).toBe(0); // expect that we don't have any rows on todos table
+
+    // validate the GET /api/v1/todos returns empty array
+    await supertest(server)
+        .get('/api/v1/todos')
+        .expect(200) // expect that the http status code should be 200 (success)
+        .expect([]); // has empty response
+  });
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write test assertion for should return todo list with data'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 8:10
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', () => {
+    // test assertion should be placed in here
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write test assertion for should return todo list with data'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 9
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', () => {
+    // insert fake data to todos table
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Write test assertion for should return todo list with data'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 11
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', () => {
+    // insert fake data to todos table
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Insert using query builder'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 8:14
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = [
+      { name: 'My first todo' },
+      { name: 'My second todo' },
+    ];
+    const storedTodos = await db.todos.bulkCreate(todos);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Insert fake data using factory package'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 3,5:10,16:18
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+import factory from 'factory-girl';
+import { faker } from '@faker-js/faker';
+
+factory.define('Todo', db.todo, {
+  name: faker.name.findName(),
+});
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = await factory.create('Todo', 5);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+  });
+});
+```
+
+</Step>
+
+
+<Step subtitle='Assert the result'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 19:23
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+import factory from 'factory-girl';
+import { faker } from '@faker-js/faker';
+
+factory.define('Todo', db.todo, {
+  name: faker.name.findName(),
+});
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = await factory.create('Todo', 5);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+    await supertest(server)
+      .get('/api/v1/todos')
+      .expect(200)
+      .expect(todos); // expect the result must same as rows on database
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Simulate hit GET /api/v1/todos'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 21
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+import factory from 'factory-girl';
+import { faker } from '@faker-js/faker';
+
+factory.define('Todo', db.todo, {
+  name: faker.name.findName(),
+});
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = await factory.create('Todo', 5);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+    await supertest(server)
+      .get('/api/v1/todos')
+      .expect(200)
+      .expect(todos); // expect the result must same as rows on database
+  });
+});
+```
+
+</Step>
+
+
+<Step subtitle='Assert that the HTTP status should return success status'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 22
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+import factory from 'factory-girl';
+import { faker } from '@faker-js/faker';
+
+factory.define('Todo', db.todo, {
+  name: faker.name.findName(),
+});
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = await factory.create('Todo', 5);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+    await supertest(server)
+      .get('/api/v1/todos')
+      .expect(200)
+      .expect(todos); // expect the result must same as rows on database
+  });
+});
+```
+
+</Step>
+
+<Step subtitle='Assert that the JSON response must same as fake data on todos table'>
+
+```ts 3
+Scenario: Get list of todos on GET /api/v1/todos
+- Should return empty data if no todos
+- Should return my todos
+```
+
+```ts 17[11:16],23
+import supertest from 'supertest';
+import server from '../../server';
+import db from '../../db'; // this should be the query builder eg. sequelize, knexjs etc
+
+import factory from 'factory-girl';
+import { faker } from '@faker-js/faker';
+
+factory.define('Todo', db.todo, {
+  name: faker.name.findName(),
+});
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  // ... Should return empty data if no todos
+
+  it ('should return my todos', async () => {
+    // insert fake data to todos table
+    const todos = await factory.create('Todo', 5);
+
+    // validate the GET /api/v1/todos returns a JSON array with fake data
+    await supertest(server)
+      .get('/api/v1/todos')
+      .expect(200)
+      .expect(todos); // expect the result must same as rows on database
+  });
+});
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+```ts
+Always Refresh The Database
+```
+
+---
+
+<CodeSurfer>
+
+```ts
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  beforeAll(async () => {
+    // script in here will start before all the test case
+  });
+
+  // your test cases
+  it('should buy a coffee', () => ...);
+  it('should buy a course', () => ...);
+
+  afterAll(async () => {
+    // script in here will start before all the test case
+  });
+});
+
+```
+
+```ts
+import '../../db';
+
+describe('Get list of todos on GET /api/v1/todos =>', () => {
+  beforeAll(async () => {
+    // drop all tables and migrate the database schema
+    await db.sequelize.sync({ force: true });
+  });
+
+  // your test cases
+  it('should buy a coffee', () => ...);
+  it('should buy a course', () => ...);
+
+  afterAll(async () => {
+    // After all tests have finished, close the DB connection
+    await db.sequelize.close();
+  })
+});
+
+```
+
+```ts
+There are many option you can do with jest eg. beforeEach, afterEach etc
+```
+
+```ts
+Assertion syntax eg. expect(value).toBe(1), .toBeTruthy(), .toBeFalsy() etc https://jestjs.io/docs/expect
+```
+
+</CodeSurfer>
+
+---
+
+# What's next ?
+
+---
+
+# Run the test
+<center>The test result of course will fail because we haven't write our code for the GET /api/v1/todos endpoint yet</center>
+
+<br />
+<img src={fail} alt='test-fail' />
+
+---
+
+<CodeSurferColumns>
+
+
+<Step>
+
+<div>
+  <ul>
+    <li>Write the functionality of GET /api/v1/todos endpoint</li>
+    <li>Run the test again</li>
+    <li>If any error, fix the problem either the functionality or the test case itself</li>
+    <li>Iterate... </li>
+  </ul>
+</div>
+<div>
+  <img style={{maxHeight: 600}} src={tddFLow} alt="Flow" />
+</div>
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurfer>
+
+```js
+What about POST /api/v1/todos endpoint ?
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```ts
+Scenario: Store my todo on POST /api/v1/todos
+- should store my todo
+- should return error 422 on submitting without sending required value
+```
+
+```ts
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+
+    });
+  });
+```
+
+```ts 2:22
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+
+    });
+  });
+```
+
+```ts 6:12
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+
+    });
+  });
+```
+
+```ts 15:19
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+
+    });
+  });
+```
+
+```ts 21
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+
+    });
+  });
+```
+
+```ts
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+      const body = {
+        name: '',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(422)
+        .expect({
+          message: 'Invalid value',
+          error: {
+            name: ['value is required'],
+          },
+        });
+
+      // get the total row count of our todos table
+      const count = await db.todos.count();
+
+      // expect that there are no new row created after hit this endpoint
+      expect(count).toBe(0);
+    });
+  });
+```
+
+```ts 28:37
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+      const body = {
+        name: '',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(422)
+        .expect({
+          message: 'Invalid value',
+          error: {
+            name: ['value is required'],
+          },
+        });
+
+      // get the total row count of our todos table
+      const count = await db.todos.count();
+
+      // expect that there are no new row created after hit this endpoint
+      expect(count).toBe(0);
+    });
+  });
+```
+
+```ts 39:43
+  describe('Store my todo on POST /api/v1/todos =>', function () {
+    it('should store my todo', async function () {
+      const body = {
+        name: 'Review PR',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(201)
+        .expect({
+          message: 'success'
+        });
+
+      // assert that the given body stored successfully into todos table
+      const result = await db.todos.findAll({
+        where: {
+          name: 'Review PR',
+        }
+      });
+
+      expect(result.length).toBe(1); // expect data must be exists in our database
+    });
+
+    it('should return error 422 on submitting without sending required value', async function () {
+      const body = {
+        name: '',
+      };
+      await supertest(server)
+        .post('/api/v1/todos')
+        .send(body)
+        .expect(422)
+        .expect({
+          message: 'Invalid value',
+          error: {
+            name: ['value is required'],
+          },
+        });
+
+      // get the total row count of our todos table
+      const count = await db.todos.count();
+
+      // expect that there are no new row created after hit this endpoint
+      expect(count).toBe(0);
+    });
+  });
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js
+What about DELETE /api/v1/todos/:id endpoint ?
+```
+
+</CodeSurfer>
+
+---
+
+## Practice make improvement!
+###     Give it a try, you can do it :)
+This is your first task. You can start with write the test scenario first.
+
+---
+
+```js
+console.log('Thanks! 👋');
+```
